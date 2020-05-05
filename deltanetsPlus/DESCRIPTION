@@ -1,0 +1,16 @@
+Package: deltanetsPlus
+Title: Predicting gene perturbation from gene expression data
+Version: 0.1.0
+Authors@R: 
+    person(given = "Heeju",
+           family = "Noh",
+           role = c("aut", "cre"),
+           email = "heeju.noh@outlook.com")
+Description: deltanetsPlus is a package including functions necessary for calculating DeltaNeTS+ model.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Depends: 
+    R (>= 2.10)
