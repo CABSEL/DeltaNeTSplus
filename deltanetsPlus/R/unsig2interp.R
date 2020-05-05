@@ -8,7 +8,6 @@
 #' @param threshold A threshold value for \code{lfc.pval}.
 #' @return \item{lfc.new}
 #' @export
-
 unsig2interp <- function(lfc, lfc.pval, group, tp, threshold){
   
   lfc.trim = lfc

@@ -8,7 +8,8 @@
 #' @param threshold A threshold value for \code{pval}.
 #' 
 #' @return a deltanetsPlus object
-
+#' 
+#' @export
 createDeltanetsPlusObj <- function(lfc=lfc, pval=NULL, tp=NULL, experiment=NULL, p.thres=0.05){
   
   if(is.null(tp)){
