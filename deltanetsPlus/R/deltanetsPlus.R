@@ -1,7 +1,7 @@
 #' DeltaNeTS+ function
 #'
 #' The main function for DeltaNeTS+ for inferring gene perturbations for each sample.
-#' @import glmnet foreach doParallel Matrix progress doSNOW
+#' @import glmnet foreach doParallel Matrix progress doSNOW parallel
 #'
 #' @param data a deltanetsPlus object or a numeric matrix/data.frame of log2FC data. For log2FC data, each row represents a gene and each column represents a sample.
 #' @param slope The slope matrix from time-series log2FC data. The number of rows should be the same as the number of rows in the log2FC data. If a deltanetsPlus object is used or the log2FC data only include steady-state samples, no need to provide the \code{slope} input.
