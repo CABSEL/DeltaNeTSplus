@@ -1,6 +1,7 @@
 #' creating a deltanetsPlus object.
 #'
 #'  This function creastes a deltanetsPlus object, which is an input format of \code{deltanetsPlus} function.
+#' @importFrom methods setClass setGeneric setMethod
 #' @param lfc The numeric matrix or data.frame of log2FC data. Each row represents a gene and each column represents a sample.
 #' @param pval p-values for log2FC values. If pval==NULL, no filtering of log2FC data.
 #' @param tp A vector of time points. The length of the vector should be the same as the number of samples. If steady-state samples, set the corresponding elements of tp to zero.
@@ -8,10 +9,9 @@
 #' @param threshold A threshold value for \code{pval}.
 #'
 #' @return a deltanetsPlus object
-#'
 #' @export
 createDeltanetsPlusObj <- function(lfc=lfc, pval=NULL, tp=NULL, experiment=NULL, p.thres=0.05){
-  require(methods)
+
 
   if(is.null(tp)){
 
@@ -88,7 +88,7 @@ createDeltanetsPlusObj <- function(lfc=lfc, pval=NULL, tp=NULL, experiment=NULL,
                                        experiment.type="character",
                                        filt="logical"),
            prototype(slope = matrix()),
-           where= topenv())
+           where= topenv(parent.frame()))
 
   setMethod("show","deltanetsPlus",function(object){
     cat("size lfc: ")
@@ -102,7 +102,7 @@ createDeltanetsPlusObj <- function(lfc=lfc, pval=NULL, tp=NULL, experiment=NULL,
     cat("Total number of experiments:", length(levels(object@experiment)),"\n")
     cat("Number of time-series samples:", sum(object@experiment.type=="ts"),"\n")
     cat("Number of steady-state samples:", sum(object@experiment.type=="ss"),"\n")
-  })
+  },where= topenv(parent.frame()))
 
 
 
@@ -118,7 +118,7 @@ createDeltanetsPlusObj <- function(lfc=lfc, pval=NULL, tp=NULL, experiment=NULL,
 
               obj.comb = new("deltanetsPlus", lfc = lfc.comb, slope=slope.comb, experiment=factor(experiment.comb,levels=unique(experiment.comb)), experiment.type=experiment.type.comb, filt=filt.comb)
               return(obj.comb)
-            })
+            },where= topenv(parent.frame()))
 
 
 
