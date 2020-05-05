@@ -60,7 +60,7 @@ dts.res <- deltanetsPlus(d.obj,
                          par=TRUE, numClusters=2)
 ```
 
-Finally, we can check the perturbation scores for the given gene set. In the following example results, mex-3, pie-1, and pal-1 showed the lowest perturbation values for exp. A (1st Column) and exp. B (2nd Column), and exp. C (3rd column), respectively, suggesting that those could be the genes directly inhibited during the experiments.
+Finally, we can check the perturbation scores for the given gene set. In the following example results, mex-3, pie-1, and pal-1 showed the lowest perturbation values for exp. A (1st Column) and exp. B (2nd Column), and exp. C (3rd column), respectively, suggesting that those could be the genes directly repressed during the experiments.
 
 
 ```{r warning=FALSE,eval=FALSE,echo=TRUE}
