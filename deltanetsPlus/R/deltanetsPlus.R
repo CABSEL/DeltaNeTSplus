@@ -219,7 +219,7 @@ deltanetsPlus <- function(data, slope=NULL, grn=NULL, perturbation=c("group","in
 
 
     ## DeltaNeTS+ analysis with multiple work clusters
-    cl <- makeCluster(numClusters,outfile='')
+    cl <- snow::makeCluster(numClusters,outfile='')
     # registerDoParallel(cl)
     registerDoSNOW(cl)
 
