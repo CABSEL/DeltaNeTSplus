@@ -20,24 +20,70 @@ To install `DeltaNeTS+` directly from github repository, `devtools` R package is
 
 ### DeltaNeTS+ example codes using *C.elegans* expression data
 
-`deltanetsPlus` package includes `lfc`, `pval`, `tp`, `experiment`, and `grn` data of *C.elegans*, which were processed from the orignal data of Baugh et al. 2005 (GSE2180).
-- `lfc`: log2Fc of differential gene expression values. Rows are genes and Columna are time-series samples from three different experiments (10 time points per each experiment).  
-- `pval`:
-- `tp`:
-- `experiment`:
-- `grn`:
+`deltanetsPlus` package includes example data of `lfc`, `pval`, `tp`,and `experiment`, which were processed from *C .elegans* data of Baugh et al. 2005 (GSE2180), as well as `grn` (tf-gene interactions) of *C.elegans*. This data set consists of 30 time-series samples of three gene perturbation experiments in *C. elegans* (10 time points in each experiment), and the perturbed targets were mex-3 for Experiment A, pie-1 for Experiment B, and pie-1 & pal-1 for Experiment C.
 
+- `lfc`: an nx30 matrix of log base2 Fold Change values of differential gene expressions. Rows are genes (n) and Columna are time-series samples from three different experiments (10 time points per each experiment).  
+- `pval`: an nx30 matrix of statistical p-values of the differential gene expressions.
+- `tp`: a 1X30 vector of sample time points
+- `experiment`: a 1x30 vector of group/experiment indication.
+- `grn`: TF-gene interaction list.
+
+#### 1. Generate a deltanetsPlus object.
+
+ In this example, we are creating a deltanetsPlus object using `createDeltanetsPlusObj()`, which will filter out gene expressions and compute slopes of gene expression changes, given `pval` and `tp`, repectively. 
+ 
+```{r warning=FALSE,eval=FALSE,echo=TRUE}
+d.obj = createDeltanetsPlusObj(lfc=lfc, pval=pval, tp=tp, experiment=experiment, p.thres=0.05)
+```
+
+For multiple datasets, one can use `combin2()` to combine deltaentsPlus object (The number of genes should be the same in two lfc data).
+e.g. d.obj=cbind2(d.obj1,d.obj2). 
+
+#### 2. Compute gene perturbation scores using deltanetPlus().
+
+In this example, we will compute the perturbations for only a small set of genes.
 
 ```{r warning=FALSE,eval=FALSE,echo=TRUE}
-pgn <- generatePGN(glist = glist, tftg = tftg, ppi = ppi, tftg_thre = 0, ptf_thre = 0, 
-                   ppi_thre = 500)
+gset = c("mex-3","pie-1","pal-1",sample(rownames(lfc),10))
 ```
-d.obj = createDeltanetsPlusObj(lfc=lfc, pval=pval, tp=tp, experiment=experiment, p.thres=0.05)
+Now, `gset` includes the actual perturbation targets (mex-3 for exp. A, pie-1 for exp. B, and pal-1 and pie-1 for exp. C) and 10 random genes, which are not supposed to be perturbed.If `gset` is not provided, `deltanetsPlus()` will compute the perturbation scores for whole genes. The example below used parallel computing (`par=TRUE`) with 2 clusters, but one can switch off parallel computing by `par=FALSE`.
 
-## in case of combining multiple datasets for the same organism or cell line, one can use combin2() for deltaents object. e.g. d.obj=cbind2(d.obj1,d.obj2)
+```{r warning=FALSE,eval=FALSE,echo=TRUE}
+dts.res <- deltanetsPlus(d.obj, 
+                         grn=grn, 
+                         kfolds=10,
+                         cv.method="cv",
+                         perturbation="group",
+                         gset=gset,
+                         group=NULL,
+                         lambda=10^seq(-2,5,length.out=100),
+                         cv.opt = "lambda.1se",
+                         par=TRUE, numClusters=2)
+```
+
+Finally, the follows are the perturbation scores for the given gene set.
+
+```{r warning=FALSE,eval=FALSE,echo=TRUE}
+gset2 = intersect(gset, rownames(dts.res$P))
+print(dts.res$P[gset2,])
+```
+
+12 x 3 sparse Matrix of class "dgCMatrix"
+                      1           2           3
+mex-3      -1.776621450 -0.59719729 -0.62503056
+pie-1      -1.182894234 -2.05782894 -2.40294302
+pal-1       .           -0.02866807 -3.01030870
+ife-3      -0.002458885 -0.00233180 -0.00266895
+frm-5.1     0.044570707 -0.08326815  .         
+dnj-17     -0.138966291 -0.30727911 -0.26977825
+F29D10.2   -0.187006724 -0.17008810 -0.18143735
+pgrn-1     -0.307675932  .           0.10154587
+F25E5.3    -0.093054526  .          -0.12077273
+Y69A2AR.23  0.058642704  .           .         
+ZK112.6     0.084273230  .           0.16039465
+ncs-2      -0.104642724  .           .         
 
 
-grn = read.delim(file="./celegans_data/grn_celegans.txt")
 
 ### Acknowledgements
 This work has been supported by the ETH Zurich Research Grant.
