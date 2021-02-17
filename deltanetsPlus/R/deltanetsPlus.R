@@ -222,6 +222,8 @@ deltanetsPlus <- function(data, slope=NULL, grn=NULL, perturbation=c("group","in
     cl <- snow::makeCluster(numClusters,outfile='')
     # registerDoParallel(cl)
     registerDoSNOW(cl)
+    #export libraries to all workers
+    clusterCall(cl, function(x) .libPaths(x), .libPaths())
 
     ## progress bar in parallel computing
     pb <- txtProgressBar(max=length(dgi), style=3)
