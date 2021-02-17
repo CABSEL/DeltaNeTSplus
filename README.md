@@ -11,10 +11,10 @@
 Please refer to [DeltaNeTS+ manuscript](https://www.biorxiv.org/content/10.1101/788968v1) for more detailed information.
 
 ### DeltaNeTS+ installation
-To install `DeltaNeTS+` directly from github repository, `devtools` R package is required. 
+To install `DeltaNeTS+` directly from github repository, `devtools`, `doSNOW`and `glmnet` R packages are required. 
 
-1. Install and load `devtools` package in R.
-2. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. Your package will e inatalled in R library directory.
+1. Install and load `devtools`, `doSNOW`and `glmnet` packages in R.
+2. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. Your package will be installed in R library directory.
 3. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
 
 
