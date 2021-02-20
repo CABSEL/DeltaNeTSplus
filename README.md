@@ -21,7 +21,7 @@ install.packages("devtools")
 ## Loading devtools library
 library(devtools)
 ```
-2. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. When you are asked to install/update the denpendencies, select 1 for 'All' (* deltanetsPlus dependencies: You can also manually install R packages of `doParallel`, `doSNOW`, `glmnet`, `foreach`, `Matrix`, `parallel`, and `progress`). Your package will be inatalled in R library directory.
+2. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. When you are asked to install/update the dependencies, select 1 for 'All' (* deltanetsPlus dependencies: You can also manually install R packages of `doParallel`, `doSNOW`, `glmnet`, `foreach`, `Matrix`, `parallel`, and `progress`). Your package will be installed in R library directory.
 3. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
 
 
