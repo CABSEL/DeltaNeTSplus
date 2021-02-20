@@ -21,9 +21,8 @@ install.packages("devtools")
 ## Loading devtools library
 library(devtools)
 ```
-3. 
-4. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. Your package will e inatalled in R library directory.
-5. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
+2. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. Your package will e inatalled in R library directory.
+3. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
 
 
 ### DeltaNeTS+ example codes using *Caenorhabditis elegans* expression data
