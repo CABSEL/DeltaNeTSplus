@@ -18,9 +18,9 @@ To install `DeltaNeTS+` directly from github repository, `devtools` R package is
 3. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
 
 
-### DeltaNeTS+ example codes using *C.elegans* expression data
+### DeltaNeTS+ example codes using *Caenorhabditiselegans* expression data
 
-`deltanetsPlus` package includes example data of `lfc`, `pval`, `tp`,and `experiment`, which were processed from *C .elegans* data of Baugh et al. 2005 (GSE2180), as well as `grn` (tf-gene interactions) of *C.elegans*. This data set consists of 30 time-series samples of three gene perturbation experiments in *C. elegans* (10 time points in each experiment), and the perturbed targets were mex-3 for Experiment A, pie-1 for Experiment B, and pie-1 & pal-1 for Experiment C.
+`deltanetsPlus` package includes example data of `lfc`, `pval`, `tp`,and `experiment`, which were processed from *C. elegans* dataset of Baugh et al. 2005 (GSE2180), as well as the `grn` structure (tf-gene interactions) of *C. elegans*. This dataset consists of 30 time-series samples of three genetic perturbation experiments in *C. elegans* (10 time points in each experiment), and the gene knock-downs were mex-3 for Experiment A, pie-1 for Experiment B, and pie-1 and pal-1 for Experiment C.
 
 - `lfc`: an nx30 matrix of log base2 Fold Change values of differential gene expressions. Rows are genes (n) and Columna are time-series samples from three different experiments (10 time points per each experiment).  
 - `pval`: an nx30 matrix of statistical p-values of the differential gene expressions.
@@ -30,22 +30,22 @@ To install `DeltaNeTS+` directly from github repository, `devtools` R package is
 
 #### 1. Generate a deltanetsPlus object.
 
- In this example, we are creating a deltanetsPlus object using `createDeltanetsPlusObj()`, which will filter out unsignificant gene expressions and compute slopes of gene expression changes, given `pval` and `tp`, repectively. 
+In this example, we are creating a DeltanetsPlus object using `createDeltanetsPlusObj()`, which will filter out unsignificant gene expressions and compute slopes of gene expression changes, given `pval` and `tp`, respectively. 
  
 ```{r warning=FALSE,eval=FALSE,echo=TRUE}
 d.obj = createDeltanetsPlusObj(lfc=lfc, pval=pval, tp=tp, experiment=experiment, p.thres=0.05)
 ```
 
-For multiple datasets, one can use `combin2()` to combine deltaentsPlus object (e.g. `d.obj=cbind2(d.obj1,d.obj2)`). In that case, the number of genes should be the same in two lfc data.
+One can use `combin2()` to combine two DeltanetsPlus objects (e.g. `d.obj=cbind2(d.obj1,d.obj2)`). Note that the genes should match between the two datasets.
 
 #### 2. Compute gene perturbation scores using deltanetPlus().
 
-In this example, we will compute the perturbations for only a small set of genes.
+In this example, we will compute the perturbations for only a select set of genes.
 
 ```{r warning=FALSE,eval=FALSE,echo=TRUE}
 gset = c("mex-3","pie-1","pal-1",sample(rownames(lfc),10))
 ```
-Now, `gset` includes the actual perturbation targets (mex-3, pie-1, and pal-1) as well as 10 random genes, which are not supposed to be perturbed. If `gset` is not provided, `deltanetsPlus()` will compute the perturbation scores for whole genes. The example below used parallel computing (`par=TRUE`) with 2 clusters, but one can also switch off parallel computing by `par=FALSE`.
+In the above, `gset` includes the actual perturbation targets (mex-3, pie-1, and pal-1) as well as 10 random genes, which were not perturbed. In the manuscript describing DeltaNeTS+, we applied the method for the complete set of genes. If `gset` is not provided, `deltanetsPlus()` will compute the perturbation scores for the complete set of genes. The example below implements parallel computing (`par=TRUE`) with 2 nodes (`numClusters=2`). To turn off parallel option, users can set `par=FALSE`.
 
 ```{r warning=FALSE,eval=FALSE,echo=TRUE}
 dts.res <- deltanetsPlus(d.obj, 
@@ -60,7 +60,7 @@ dts.res <- deltanetsPlus(d.obj,
                          par=TRUE, numClusters=2)
 ```
 
-Finally, we can check the perturbation scores for the given gene set. In the following example results, mex-3, pie-1, and pal-1 showed the lowest perturbation values for exp. A (1st Column) and exp. B (2nd Column), and exp. C (3rd column), respectively, suggesting that those could be the genes directly repressed during the experiments.
+Finally, we can check the perturbation scores by DeltaNeTS+. An example of the result from the analysis above is shown below. The result expectedly shows large negative perturbation values for mex-3, pie-1, and pal-1/pie-1 in exp. A (1st Column), exp. B (2nd Column), and exp. C (3rd column), respectively, since these genes were knocked down in the experiments. 
 
 
 ```{r warning=FALSE,eval=FALSE,echo=TRUE}
@@ -75,7 +75,7 @@ Example results:
 genes    |             1|           2|           3
 --- | --- | --- | --- 
 mex-3    |  **-1.776621450**| -0.59719729| -0.62503056
-pie-1    |  -1.182894234| **-2.05782894**| -2.40294302
+pie-1    |  -1.182894234| **-2.05782894**| **-2.40294302**
 pal-1    |   .          | -0.02866807| **-3.01030870**
 ife-3    |  -0.002458885| -0.00233180| -0.00266895
 frm-5.1  |   0.044570707| -0.08326815|  .         
@@ -90,7 +90,7 @@ ncs-2     | -0.104642724|  .         |  .
 
 
 ### Acknowledgements
-This work has been supported by the ETH Zurich Research Grant.
+This work was supported by the ETH Zurich Research Grant.
 
 
 
