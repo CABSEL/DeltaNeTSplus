@@ -18,7 +18,7 @@ To install `DeltaNeTS+` directly from github repository, `devtools` R package is
 3. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
 
 
-### DeltaNeTS+ example codes using *Caenorhabditiselegans* expression data
+### DeltaNeTS+ example codes using *Caenorhabditis elegans* expression data
 
 `deltanetsPlus` package includes example data of `lfc`, `pval`, `tp`,and `experiment`, which were processed from *C. elegans* dataset of Baugh et al. 2005 (GSE2180), as well as the `grn` structure (tf-gene interactions) of *C. elegans*. This dataset consists of 30 time-series samples of three genetic perturbation experiments in *C. elegans* (10 time points in each experiment), and the gene knock-downs were mex-3 for Experiment A, pie-1 for Experiment B, and pie-1 and pal-1 for Experiment C.
 
