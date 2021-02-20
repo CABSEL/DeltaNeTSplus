@@ -13,9 +13,17 @@ Please refer to [DeltaNeTS+ manuscript](https://www.biorxiv.org/content/10.1101/
 ### DeltaNeTS+ installation
 To install `DeltaNeTS+` directly from github repository, `devtools` R package is required. 
 
-1. Install and load `devtools` package in R.
-2. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. Your package will e inatalled in R library directory.
-3. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
+1. Install and load `devtools` package in R using the follwoing commands:
+
+```{r warning=FALSE,eval=FALSE,echo=TRUE}
+## installing devtools from CRAN
+install.packages("devtools")
+## Loading devtools library
+library(devtools)
+```
+3. 
+4. Install the package called `deltanetsPlus`, using `devtools::install_github("CABSEL/DeltaNeTSplus/deltanetsPlus")`. Your package will e inatalled in R library directory.
+5. Load the package, using `library(deltanetsPlus)`, and now you're ready to use!
 
 
 ### DeltaNeTS+ example codes using *Caenorhabditis elegans* expression data
