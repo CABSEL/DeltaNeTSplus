@@ -192,7 +192,7 @@ deltanetsPlus <- function(data, slope=NULL, grn=NULL, perturbation=c("group","in
   }else{
 
     grn_usage = FALSE
-    dgi = 1:nrow(lfc)
+    dgi = 1:nrow(lfc) ## This line calls example data when it is supposed to call user's data
 
     if(!is.null(gset)){
 
