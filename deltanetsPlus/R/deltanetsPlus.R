@@ -87,7 +87,7 @@ deltanetsPlus <- function(data, slope=NULL, grn=NULL, perturbation=c("group","in
 
 
     if(nrow(slope)!=nrow(lfc)){
-      stope("The number of rows in 'slope' should be equal to the number of rows in 'lfc'.")}
+      stop("The number of rows in 'slope' should be equal to the number of rows in 'lfc'.")}
 
     m_slope = ncol(slope)
 
